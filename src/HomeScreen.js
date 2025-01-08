@@ -1,4 +1,3 @@
-// MainScreen.js
 import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, StyleSheet, ActivityIndicator, useWindowDimensions, ScrollView } from "react-native";
 import { UserContext } from "./context/UserContext";
@@ -9,6 +8,7 @@ import WelcomeSection from "./components/WelcomeSection";
 import PredictionSection from "./components/PredictionSection";
 import ResultScreen from "./components/ResultScreen";
 import { fetchTrendingMovies, fetchGenres } from "./context/API";
+import EnhancedMovieSearchSpinner from "./components/EnhancedMovieSearchSpinner";
 
 const MainScreen = () => {
   const { width } = useWindowDimensions();
@@ -20,7 +20,7 @@ const MainScreen = () => {
   const [prediction, setPrediction] = useState(null);
   const [showResult, setShowResult] = useState(false);
   const [genres, setGenres] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -83,6 +83,13 @@ const MainScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      {isLoading ? (
+        <View style={styles.loadingScreen}>
+          <View style={styles.spinnerContainer}>
+            <EnhancedMovieSearchSpinner />
+          </View>
+        </View>
+      ) : (
       <View style={styles.container}>
         <View style={[styles.content, isTablet && styles.tabletContent]}>
           {showResult ? (
@@ -100,8 +107,10 @@ const MainScreen = () => {
           onClose={() => setIsLinkModalVisible(false)}
           setPrediction={handlePredictionComplete}
           isTablet={isTablet}
+          setIsLoading={setIsLoading}
         />
       </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -124,8 +133,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   trendingSection: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10, 
   },
   loadingContainer: {
     padding: 20,
@@ -135,7 +144,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     maxWidth: 800,
     alignSelf: 'center',
-  }
+  },
+  loadingScreen: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: '#0f172a',
+    justifyContent: 'center', // Changed from flex-start
+    alignItems: 'center', // Changed from stretch
+  },
+
 });
 
 export default MainScreen;
