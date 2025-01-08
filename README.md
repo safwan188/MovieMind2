@@ -75,7 +75,7 @@ MovieMind is an innovative mobile application that revolutionizes movie discover
   <img src="screenshots/link.png" width="200" alt="Home Screen"/>
   <img src="screenshots/prediction.png" width="200" alt="Prediction Screen"/>
   <img src="screenshots/discover.png" width="200" alt="Discover Screen"/>
-  <img src="screenshots/community.png" width="200" alt="Community Screen"/>
+  <img src="screenshots/Community.png" width="200" alt="Community Screen"/>
 </p>
 
 ## 🚀 Getting Started
